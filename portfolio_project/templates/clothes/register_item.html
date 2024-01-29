@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+
+ <form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form_to_use.as_p }}
+  <input type="submit" value="保存">
+ </form>
+ <hr>
+
+{% endblock %}
+
+

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+ <h1>Edit Coordinate</h1>
+
+ <form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }} 
+  <img width="100px" height="100px" src={{ coordinate.outer.url }}><p><p>
+  <input type="submit" value="更新">
+ </form>
+ <hr>
+ 
+<a href="{% url 'clothes:coordinate_list' %}">コーディネイト一覧に戻る</a>
+
+{% endblock %}

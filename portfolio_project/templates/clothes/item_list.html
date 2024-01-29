@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="POST">
+{% csrf_token %}
+{% if messages %}
+{% for message in messages %}
+  {{ message.message }}
+{% endfor %}
+{% endif %}
+
+ <h1>Item List</h1>
+
+{% for item in items %}
+<hr>
+<tr>
+ <img width="100px" height="100px"  src="{{ items.outer.url }}" alt="Outer Image">
+  <a href=" {% url 'clothes:delete_picture' pk=item.id %}">削除</a> 
+   <a href=" {% url 'clothes:coordinate_view' pk=item.id %}">コーディネイトに登録</a> &nbsp; &nbsp; &nbsp; &nbsp;
+</tr>
+<hr>
+<tr>
+  <img width="100px" height="100px"  src="{{ items.inner.url }}" alt="Inner Image">
+  <a href=" {% url 'clothes:inner_delete_picture' pk=item.id %}">削除</a> 
+</tr>
+{% endfor %}
+<hr>
+
+</form>
+{% endblock %}
