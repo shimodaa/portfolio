@@ -14,15 +14,12 @@ class BaseModel(models.Model):
         abstract = True
 
 
-# class ItemManager(models.Manager): #いると思う
-#     def filter_by_outer(self, outer):
-#         return self.filter(outer=outer).all()
 
-    
 class Coordinate(models.Model):
     
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(Users, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=10000, blank=True)
     description = models.CharField(max_length=100)
     outer = models.FileField(upload_to='picture/',default='')
     inner = models.FileField(upload_to='picture/',default='')
@@ -33,27 +30,74 @@ class Coordinate(models.Model):
          
     class Meta:
      db_table = 'coordinate'
+     
+    def save(self, *args, **kwargs):
+        if not self.name:  # もしnameが空ならば
+            # 最後のレコードのid + 1 をnameに設定
+            last_id = Coordinate.objects.all().order_by('-id').first().id if Coordinate.objects.exists() else 0
+            self.name = str(last_id + 1)
+        super().save(*args, **kwargs)
+     
+class Outer(models.Model):
     
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, null=True)
+    outer = models.FileField(upload_to='picture/',default='')
+    coordinate = models.ForeignKey(Coordinate, on_delete=models.SET_NULL, null=True, blank=True,related_name='outers')
+    create_at = models.DateTimeField(default=timezone.now) 
+    update_at = models.DateTimeField(default=timezone.now)
+    class Meta:
+        db_table = 'outer'
+        
+class Inner(models.Model):
     
-class Item(models.Model):
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, null=True)
+    inner = models.FileField(upload_to='picture/',default='')
+    coordinate = models.ForeignKey(Coordinate, on_delete=models.SET_NULL, null=True, blank=True,related_name='inners')
+    create_at = models.DateTimeField(default=timezone.now) 
+    update_at = models.DateTimeField(default=timezone.now)
+    class Meta:
+        db_table = 'inner'
+        
+class Pants(models.Model):
+    
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, null=True)
+    pants = models.FileField(upload_to='picture/',default='')
+    coordinate = models.ForeignKey(Coordinate, on_delete=models.SET_NULL, null=True, blank=True,related_name='pantss')
+    create_at = models.DateTimeField(default=timezone.now) 
+    update_at = models.DateTimeField(default=timezone.now)
+    class Meta:
+        db_table = 'pants'
+
+class Shoes(models.Model):
+    
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, null=True)
+    shoes = models.FileField(upload_to='picture/',default='')
+    coordinate = models.ForeignKey(Coordinate, on_delete=models.SET_NULL, null=True, blank=True,related_name='shoess')
+    create_at = models.DateTimeField(default=timezone.now) 
+    update_at = models.DateTimeField(default=timezone.now)
+    class Meta:
+        db_table = 'shoes'
+
+    
+class Favorite(models.Model):
     
     user = models.ForeignKey(Users, on_delete=models.CASCADE, null=True)
     outer = models.FileField(upload_to='picture/',default='')
     inner = models.FileField(upload_to='picture/',default='')
     pants = models.FileField(upload_to='picture/',default='')
     shoes = models.FileField(upload_to='picture/',default='')
-    coordinate = models.ForeignKey(Coordinate, on_delete=models.SET_NULL, null=True, blank=True)
+    coordinate = models.ForeignKey(Coordinate, on_delete=models.SET_NULL, null=True, blank=True,related_name='favorites')
     create_at = models.DateTimeField(default=timezone.now) 
     update_at = models.DateTimeField(default=timezone.now)
     class Meta:
-        db_table = 'item'
+        db_table = 'favorite'
+     
+     
+     
+
+    
+    
+
+    
+
         
-    # def get_absolute_url(self):
-    #     return reverse_lazy('clothes:detail_item', kwargs={'pk': self.pk})
-     # objects = ItemManager()
-
-
-# def add_item(self, outer):
-#         existing_item = self.outer.filter(id=outer.id).first()
-#         if existing_item:
-#             return

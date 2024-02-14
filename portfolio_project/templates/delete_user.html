@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+   .center-both {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 50vh;
+        text-align: center;
+    }
+    
+   .center-both p:not(:last-child) {
+        margin-bottom: 50px;
+    } 
+
+       .paragraph-container {
+        margin-bottom: 20px; /* <p> タグの下に余白を追加 */
+    }  
+
+    .form-container {
+        margin-bottom: 30px; /* <form> タグの下に余白を追加 */
+    }
+</style>
+
+<div class="center-both">
+ 
+    <h2>アカウント削除の確認</h2>
+  <p>本当にアカウントを削除しますか？</p>
+
+   <div class="form-container">
+  <form method="post"action="{% url 'accounts:delete_user' %}"  >
+        {% csrf_token %}
+        <input type="submit" value="削除する">
+    </form>
+    </div>
+
+    <div class="paragraph-container">
+    <p><a href="{% url 'accounts:home' %}">キャンセル</a></p> 
+    </div>
+
+</div>
+
+
+{% endblock %}

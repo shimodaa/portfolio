@@ -7,27 +7,93 @@
     <title>Coordinate List</title>
 </head>
 <body>
+
+<style>
+    .coordinate-list {
+        display: flex;
+        flex-wrap: wrap; /* 画像が横に並びきれない場合に折り返す */
+        list-style: none; /* 箇条書きスタイルを削除 */
+        padding: 0;
+    }
+
+    .coordinate-list li {
+        margin-right: 20px; /* 画像間の余白 */
+        margin-bottom: 20px; /* 下に余白を追加 */
+    }
+
+    .coordinate-list img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 5px; /* 画像下の余白 */
+    }
+
+    .coordinate-actions {
+        display: flex;
+    }
+
+    .coordinate-actions a {
+        margin-right: 10px;
+    }
+
+h2 {
+  position: relative;
+  padding: 1rem .5rem;
+}
+
+h2:before,
+h2:after {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  content: '';
+}
+h2:after {
+    bottom: 0;
+    background: linear-gradient(to right, #001f3f,#add8e6);
+}
+h2:before {
+  top: 0;
+   background: linear-gradient(to right, #001f3f,#add8e6);
+}
+
+</style>
+
 {% if messages %}
 {% for message in messages %}
   {{ message.message }}
 {% endfor %}
 {% endif %}
-    <h1>Coordinate List</h1>
+
+<br>
+    <h2>Coordinate List</h2>
+
 
     <ul>
+    
         {% for coordinate in coordinates %}
             <li>
                 <strong>Name:</strong> {{ coordinate.name }}<br>
                 <strong>Description:</strong> {{ coordinate.description }}<br>
-                <strong>Outer:</strong> <img width="50px" height="50px" src="{{ coordinate.outer.url }}" alt="Outer Image"><br>
+                <ul class="coordinate-list">
+                {% if coordinate.outer %}
+                <li><strong>Outer:</strong> <img width="50px" height="50px" src="{{ coordinate.outer.url }}" alt="Outer Image"></li><br>
+                {% endif %}      
+                {% if coordinate.inner %}
+                <li><strong>Inner:</strong> <img width="50px" height="50px" src="{{ coordinate.inner.url }}" alt="Inner Image"></li><br>                
+                {% endif %}
+                {% if coordinate.pants %}
+                <li><strong>Pants:</strong> <img width="50px" height="50px" src="{{ coordinate.pants.url }}" alt="Pants Image"></li><br>                
+                {% endif %}               
+                {% if coordinate.shoes %}
+                <li><strong>Shoes:</strong> <img width="50px" height="50px" src="{{ coordinate.shoes.url }}" alt="Shoes Image"></li><br>                
+                {% endif %}             
+                 </ul>
                 <a href="{% url 'clothes:coordinate_form' pk=coordinate.id %}">編集</a> &nbsp; &nbsp; &nbsp; &nbsp;
                 <a href="{% url 'clothes:coordinate_delete' pk=coordinate.id %}">削除</a>
-                
             </li>
         {% endfor %}
     </ul>
-
 </body>
 </html>
-
 {% endblock %}

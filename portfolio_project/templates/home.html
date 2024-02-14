@@ -1,4 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>ホーム画面です</h1>
+<style>
+   .center-both {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 50vh;
+        text-align: center;
+    }
+
+  .center-both a {
+        margin-top: 50px; /* リンクの上部に余白を追加 */
+    }
+
+h1 {
+  font-size: 3.4rem;
+  font-style: italic;
+  letter-spacing: .1em;
+  color: #fff;
+  text-shadow: -4px 3px 0 #fa4141, -8px 6px 0 #000;
+   background: radial-gradient(
+    circle 200px at center,
+    #57f6fe 0%,
+    #30c7ec 50%,
+    #46aef7 100%
+   );
+   width: 100%;
+   margin-top: 80px; 
+   height: 50vh;
+   display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+
+</style>
+<div class="linear-gradient">
+<div class="center-both">
+    <h1>~CoordinateCabinet~</h1>
+ <br>
+ <br>
+ <br>
+ <a href="{% url 'accounts:user_information' %}">マイページ</a>
+</div>
+
+</div>
+
+
 {% endblock %}

@@ -30,3 +30,7 @@ class Users(AbstractBaseUser,PermissionsMixin):
 
     def get_absolute_url(self):
         return reverse_lazy('accounts:home')
+    
+    def delete_user(self):
+        # 任意の削除前の処理を追加
+        self.delete()

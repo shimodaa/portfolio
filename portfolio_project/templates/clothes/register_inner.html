@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+
+.link-container {
+    display: flex; /* Flexbox を使って要素を横に配置 */
+}
+
+ .link-container a {
+        margin-top: 20px; 
+        margin-right: 20px; /* リンクの上部に余白を追加 */
+       
+    } 
+
+   .form-container {
+        margin-top: 50px; /* <form> タグの下に余白を追加 */
+    }
+
+ a.btn-radius-solid {
+      border: 1px solid #ccc;
+      background: #f1e767;
+      background: -webkit-gradient(linear, left top, left bottom, from(#fdfbfb), to(#ebedee));
+      background: -webkit-linear-gradient(top, #fdfbfb 0%, #ebedee 100%);
+      background: linear-gradient(to bottom, #fdfbfb 0%, #ebedee 100%);
+      -webkit-box-shadow: inset 1px 1px 1px #fff;
+      box-shadow: inset 1px 1px 1px #fff;
+      text-decoration: none; /* リンクのデフォルトのアンダーラインを削除 */
+    }
+
+    a.btn-radius-solid:hover {
+      background: -webkit-gradient(linear, left bottom, left top, from(#fdfbfb), to(#ebedee));
+      background: -webkit-linear-gradient(bottom, #fdfbfb 0%, #ebedee 100%);
+      background: linear-gradient(to top, #fdfbfb 0%, #ebedee 100%);
+    }
+
+ input {
+   padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  }
+
+input:focus, select:focus, textarea:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 5px #66afe9;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+  select {
+    padding: 8px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+</style>
+<div class="btn-radius-gradient-wrap">
+<div class="link-container">
+  <a href=" {% url 'clothes:register_outer'%}"class="btn btn-radius-solid">アウター登録<i class="fas fa-angle-right fa-position-right"></i></a> 
+  <a href=" {% url 'clothes:register_pants'%}"class="btn btn-radius-solid">パンツ登録<i class="fas fa-angle-right fa-position-right"></i></a> 
+  <a href=" {% url 'clothes:register_shoes'%}"class="btn btn-radius-solid">シューズ登録<i class="fas fa-angle-right fa-position-right"></i></a> 
+
+</div>
+</div>
+<div class="form-container">
+<form method="post" enctype="multipart/form-data">
+
+  {% csrf_token %}
+  {{ inner_form.as_p }}
+  <input type="submit" value="保存">
+  <hr>
+ </form>
+ <hr>
+</div>
+{% endblock %}

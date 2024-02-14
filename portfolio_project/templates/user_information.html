@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+   .center-both {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 50vh;
+        text-align: center;
+    }
+
+  .center-both a {
+        margin-top: 100px; /* リンクの上部に余白を追加 */
+        line-height: 5;
+    }
+
+    .center-both p:not(:last-child) {
+        margin-bottom: 30px;
+    }
+</style>
+
+<div class="center-both">
+    <h1>マイページ</h1>
+
+<p>ユーザー名: {{ user_data.username }}</p>
+<p>メールアドレス: {{ user_data.email }}</p>
+
+
+<form action="{% url 'accounts:logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="ログアウト">
+    </form>
+
+ <p><a href="{% url 'accounts:delete_user' %}">アカウントを削除する</a></p>
+ 
+</div>
+
+
+
+
+
+{% endblock %}
