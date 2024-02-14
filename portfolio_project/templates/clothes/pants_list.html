@@ -117,11 +117,10 @@ h4:after {
 </div>
 <hr>
 <hr>
-<div class="link-container">
 {% for pants in pants %}
 <hr>
 <tr>
-<div class="link-item">
+
  <img width="100px" height="100px"  src="{{ pants.pants.url}}" alt="Pants Image">
   <a href=" {% url 'clothes:add_favorite_pants' pk=pants.id %}">お気に入りに追加する</a> &nbsp; &nbsp; &nbsp; &nbsp;
   <a href=" {% url 'clothes:create_pants_coordinate' pk=pants.id %}">コーディネイトを作成する</a> &nbsp; &nbsp; &nbsp; &nbsp;
@@ -133,8 +132,8 @@ h4:after {
   <a href=" {% url 'clothes:pants_delete_picture' pk=pants.id %}">削除</a> 
 </tr> 
 
-</div>
+
 {% endfor %}
-</div>
+
 </form>
 {% endblock %}

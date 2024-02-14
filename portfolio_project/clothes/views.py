@@ -87,7 +87,7 @@ class RegisterInnerView(FormView):
 class RegisterPantsView(FormView):
     template_name = 'clothes/register_pants.html'
     form_class = PantsForm 
-    success_url = reverse_lazy('clothes:register_item')
+    success_url = reverse_lazy('clothes:register_outer')
     
     def post(self, request, *args, **kwargs):
         pants_form = PantsForm(request.POST or None, request.FILES or None)

@@ -24,12 +24,12 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 SECRET_KEY = "django-insecure-_g7p%=5)*l4s33i(55=8yn1bx7a^+&#9x&gn9#)9@!-tvr2g%p"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
-ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com', 'shimoda.a.pythonanywhere.com']
+# ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com', 'shimoda.pythonanywhere.com']
 
 
 # Application definition
