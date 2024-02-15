@@ -24,7 +24,7 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 SECRET_KEY = "django-insecure-_g7p%=5)*l4s33i(55=8yn1bx7a^+&#9x&gn9#)9@!-tvr2g%p"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "accounts",
     "clothes",
+    # "cloudinary", 
+    # "cloudinary_storage",
 ]
 
 AUTH_USER_MODEL = 'accounts.Users'
@@ -148,3 +150,11 @@ try:
     from .local_settings import *
 except:
     pass
+
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME' : 'media',
+#     'API_KEY' : '773594265621598',
+#     'API_SECRET' : 'uEjsuz2ahCJrwJQB7RNerzcYaSw',
+#     'API_PROXY': 'http://proxy.server:3128',
+# }
