@@ -157,10 +157,8 @@ class OuterListView(ListView):
          outer_queryset = Outer.objects.filter(user=self.request.user)
          coordinate_queryset = Coordinate.objects.filter(user=self.request.user)
          favorite_queryset = Favorite.objects.filter(user=self.request.user)
-        #  return Outer.objects.filter(user=self.request.user)
          return outer_queryset, coordinate_queryset, favorite_queryset
        else:
-        # return Outer.objects.none()
         return Outer.objects.none(), Coordinate.objects.none(), Favorite.objects.none()
     
     def get_context_data(self, **kwargs):
@@ -187,7 +185,6 @@ class InnerListView(ListView):
          favorite_queryset = Favorite.objects.filter(user=self.request.user)
          return inner_queryset, coordinate_queryset, favorite_queryset
        else:
-        # ユーザーが認証されてない場合
         return Inner.objects.none(), Coordinate.objects.none(),Favorite.objects.none()
     
     def get_context_data(self, **kwargs):
@@ -214,10 +211,8 @@ class PantsListView(ListView):
          pants_queryset = Pants.objects.filter(user=self.request.user)
          coordinate_queryset = Coordinate.objects.filter(user=self.request.user)
          favorite_queryset = Favorite.objects.filter(user=self.request.user)
-        #  return Outer.objects.filter(user=self.request.user)
          return pants_queryset, coordinate_queryset, favorite_queryset
        else:
-        # return Outer.objects.none()
         return Pants.objects.none(), Coordinate.objects.none(), Favorite.objects.none()
     
     def get_context_data(self, **kwargs):
@@ -236,7 +231,6 @@ class CoordinateListView(ListView):
     def get_queryset(self):
        if self.request.user.is_authenticated:
          coordinate_queryset = Coordinate.objects.filter(user=self.request.user)
-        #  return Outer.objects.filter(user=self.request.user)
          return  coordinate_queryset
        else:
         return Coordinate.objects.none()   
@@ -244,7 +238,6 @@ class CoordinateListView(ListView):
 class CoordinateUpdateView(SuccessMessageMixin,UpdateView):          
     template_name = 'clothes/coordinate_form.html'
     model = Coordinate
-    # form_class = forms.CoordinateUpdateForm
     fields = ['name', 'description']
     success_message = '更新に成功しました'
     success_url = reverse_lazy('clothes:coordinate_list')   
@@ -316,7 +309,6 @@ def add_outer_coordinate_view(request, outer_id, coordinate_id):
         coordinate_instance = Coordinate.objects.get(pk=coordinate_id)
        
         if outer.outer:
-            # Outerモデルの画像データを読み込み、Coordinateモデルに保存
             coordinate_instance.outer.save(outer.outer.name, ContentFile(outer.outer.read()), save=True)
 
         
@@ -365,7 +357,6 @@ def add_favorite_outer_coordinate(request, outer_id, coordinate_id):
          coordinate = Coordinate.objects.get(pk=coordinate_id)
        
          if favorite.outer:
-            # Outerモデルの画像データを読み込み、Coordinateモデルに保存
             coordinate.outer.save(favorite.outer.name, ContentFile(favorite.outer.read()), save=True)
 
         
@@ -412,7 +403,6 @@ def add_inner_coordinate(request, inner_id, coordinate_id):
         coordinate_instance = Coordinate.objects.get(pk=coordinate_id)
        
         if inner.inner:
-            # Outerモデルの画像データを読み込み、Coordinateモデルに保存
             coordinate_instance.inner.save(inner.inner.name, ContentFile(inner.inner.read()), save=True)
 
         
@@ -459,7 +449,6 @@ def add_favorite_inner_coordinate(request, inner_id, coordinate_id):
          coordinate = Coordinate.objects.get(pk=coordinate_id)
        
          if favorite.inner:
-            # Outerモデルの画像データを読み込み、Coordinateモデルに保存
             coordinate.inner.save(favorite.inner.name, ContentFile(favorite.inner.read()), save=True)
 
         
@@ -522,7 +511,6 @@ def add_pants_coordinate(request, pants_id, coordinate_id):
         coordinate_instance = Coordinate.objects.get(pk=coordinate_id)
        
         if pants.pants:
-            # Outerモデルの画像データを読み込み、Coordinateモデルに保存
             coordinate_instance.pants.save(pants.pants.name, ContentFile(pants.pants.read()), save=True)
 
         
@@ -570,7 +558,6 @@ def add_favorite_pants_coordinate(request, pants_id, coordinate_id):
          coordinate = Coordinate.objects.get(pk=coordinate_id)
        
          if favorite.pants:
-            # Outerモデルの画像データを読み込み、Coordinateモデルに保存
             coordinate.pants.save(favorite.pants.name, ContentFile(favorite.pants.read()), save=True)
 
         
@@ -613,10 +600,8 @@ class ShoesListView(ListView):
          shoes_queryset = Shoes.objects.filter(user=self.request.user)
          coordinate_queryset = Coordinate.objects.filter(user=self.request.user)
          favorite_queryset = Favorite.objects.filter(user=self.request.user)
-        #  return Outer.objects.filter(user=self.request.user)
          return shoes_queryset, coordinate_queryset, favorite_queryset
        else:
-        # return Outer.objects.none()
         return Shoes.objects.none(), Coordinate.objects.none(), Favorite.objects.none()
     
     def get_context_data(self, **kwargs):
@@ -688,7 +673,6 @@ def add_shoes_coordinate(request, shoes_id, coordinate_id):
         coordinate_instance = Coordinate.objects.get(pk=coordinate_id)
        
         if shoes.shoes:
-            # Outerモデルの画像データを読み込み、Coordinateモデルに保存
             coordinate_instance.shoes.save(shoes.shoes.name, ContentFile(shoes.shoes.read()), save=True)
 
         
@@ -738,7 +722,6 @@ def add_favorite_shoes_coordinate(request, shoes_id, coordinate_id):
          coordinate = Coordinate.objects.get(pk=coordinate_id)
        
          if favorite.shoes:
-            # Outerモデルの画像データを読み込み、Coordinateモデルに保存
             coordinate.shoes.save(favorite.shoes.name, ContentFile(favorite.shoes.read()), save=True)
 
         

@@ -20,7 +20,7 @@ class Coordinate(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(Users, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=10000, blank=True)
-    description = models.CharField(max_length=100)
+    description = models.CharField(max_length=100, blank=True)
     outer = models.FileField(upload_to='picture/',default='')
     inner = models.FileField(upload_to='picture/',default='')
     pants = models.FileField(upload_to='picture/',default='')
@@ -32,8 +32,7 @@ class Coordinate(models.Model):
      db_table = 'coordinate'
      
     def save(self, *args, **kwargs):
-        if not self.name:  # もしnameが空ならば
-            # 最後のレコードのid + 1 をnameに設定
+        if not self.name:  
             last_id = Coordinate.objects.all().order_by('-id').first().id if Coordinate.objects.exists() else 0
             self.name = str(last_id + 1)
         super().save(*args, **kwargs)

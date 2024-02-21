@@ -18,9 +18,7 @@ from django.views.generic import DeleteView
 
 class HomeView(TemplateView):
     template_name = 'home.html'
-    
-# class UserInformationView(TemplateView):
-#     template_name = 'user_information.html'
+
 
 class RegistUserView(CreateView):
     template_name = 'regist.html'
@@ -40,7 +38,6 @@ class UserLoginView(LoginView):
 class UserLogoutView(LogoutView):
     template_name = 'logout.html'
     http_method_names = ['post']
-    # print(request.session.keys())
    
 
 # @method_decorator(login_required, name='dispatch')    
@@ -53,7 +50,7 @@ class UserView(LoginRequiredMixin, TemplateView):
 
 @login_required
 def user_information(request):
-    user_data = request.user  # ログインしているユーザーのデータ
+    user_data = request.user 
     return render(request, 'user_information.html', {'user_data': user_data})
 
 @login_required
@@ -61,7 +58,7 @@ def delete_user_view(request):
     if request.method == 'POST':
         user = request.user
         user.delete_user()
-        return HttpResponseRedirect(reverse_lazy('accounts:home'))  # ログアウトページへリダイレクト
+        return HttpResponseRedirect(reverse_lazy('accounts:home'))  
     else:
         return render(request, 'delete_user.html')
     

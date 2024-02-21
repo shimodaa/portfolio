@@ -85,6 +85,12 @@ button:hover {
     border: 1px solid #ccc;
     border-radius: 5px;
   }   
+
+{% comment %} .image-thumbnail {
+    width: 200px; /* 任意のサイズに変更 */
+    height: 200px; /* 任意のサイズに変更 */
+} {% endcomment %}
+
 </style>
 <br>
  <h2>Edit Coordinate</h2>
@@ -95,25 +101,25 @@ button:hover {
   <ul class="coordinate-list">
   <li>
   {% if coordinate.outer%}
-  <strong>Outer:</strong><img width="300px" height="300px" src={{ coordinate.outer.url }}><p><p>
+  <strong>Outer:</strong><img width="50px" height="50px" src={{ coordinate.outer.url }}><p><p>
   {% endif %}
   </li>
-  <li>
+  <li> 
   {% if coordinate.inner%}
-  <strong>Inner:</strong><img width="300px" height="300px" src={{ coordinate.inner.url }}><p><p>
+  <strong>Inner:</strong><img width="50px" height="50px" src={{ coordinate.inner.url }}><p><p>
   {% endif %}
-  </li>
-  <li>
+ </li>
+  <li> 
   {% if coordinate.pants %}
-  <strong>Pants:</strong><img width="300px" height="300px" src={{ coordinate.pants.url }}><p><p>
+  <strong>Pants:</strong><img width="50px" height="50px" src={{ coordinate.pants.url }}><p><p>
   {% endif %}
-  </li>
+</li>
   <li>
    {% if coordinate.shoes %}
-  <strong>Shoes:</strong><img width="300px" height="300px" src={{ coordinate.shoes.url }}><p><p>
+  <strong>Shoes:</strong><img width="100px" height="100px" src={{ coordinate.shoes.url }}><p><p>
   {% endif %}
-  </li>
-  </ul>
+</li>
+  </ul> 
   <input type="submit" value="更新">
  </form>
  <hr>

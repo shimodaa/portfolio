@@ -15,7 +15,6 @@ from .views import (RegisterOuterView,RegisterInnerView,RegisterPantsView,Regist
  )
 from django.conf import settings
 from django.conf.urls.static import static
-# from django.views.generic.base import TemplateView
 
 
 app_name = 'clothes'
@@ -61,8 +60,6 @@ urlpatterns = [
     path('coordinate/<int:pk>/delete/',coordinate_delete , name='coordinate_delete'),
     path('coordinate_form/<int:pk>',CoordinateUpdateView.as_view() , name='coordinate_form'),
    
-    # # path('inner_list/', InnerListView.as_view(), name='inner_list'),
-    # path('inner_delete_picture/<int:pk>',inner_delete_picture , name='inner_delete_picture'),
    
 
 ]
