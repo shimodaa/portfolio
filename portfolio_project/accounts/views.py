@@ -12,6 +12,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from .models import Users
 from django.views.generic import DeleteView
+from django.views.generic.base import TemplateView
 
 
 # Create your views here.
@@ -38,6 +39,9 @@ class UserLoginView(LoginView):
 class UserLogoutView(LogoutView):
     template_name = 'logout.html'
     http_method_names = ['post']
+    
+class ExplanationView(TemplateView):
+    template_name = 'explanation.html' 
    
 
 # @method_decorator(login_required, name='dispatch')    

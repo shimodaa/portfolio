@@ -24,10 +24,11 @@ from django.http import Http404
 from django.core.files.base import ContentFile
 
 
-class RegisterOuterView(FormView):
+class RegisterOuterView(FormView,SuccessMessageMixin):
     template_name = 'clothes/register_outer.html'
     form_class = OuterForm 
     success_url = reverse_lazy('clothes:register_outer')
+  
     
     def post(self, request, *args, **kwargs):
         outer_form = OuterForm(request.POST or None, request.FILES or None)
@@ -38,10 +39,12 @@ class RegisterOuterView(FormView):
             outer_instance.update_at = datetime.now()
             outer_instance.user = self.request.user
             outer_instance.save()
+            messages.success(request, 'アウターを登録しました')
 
             return self.form_valid(outer_form)
-
+        
         return super().post(request, *args, **kwargs)
+   
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,6 +56,8 @@ class RegisterOuterView(FormView):
         form.instance.update_at = datetime.now()
         form.instance.user = self.request.user
         return super().form_valid(form) 
+    
+  
 
 class RegisterInnerView(FormView):
     template_name = 'clothes/register_inner.html'
@@ -68,6 +73,7 @@ class RegisterInnerView(FormView):
             inner_instance.update_at = datetime.now()
             inner_instance.user = self.request.user
             inner_instance.save()
+            messages.success(request, 'インナーを登録しました')
 
             return self.form_valid(inner_form)
 
@@ -84,18 +90,23 @@ class RegisterInnerView(FormView):
         form.instance.user = self.request.user
         return super().form_valid(form) 
     
+    
+    
 class RegisterPantsView(FormView):
     template_name = 'clothes/register_pants.html'
     form_class = PantsForm 
-    success_url = reverse_lazy('clothes:register_outer')
+    success_url = reverse_lazy('clothes:register_pants')
     
     def post(self, request, *args, **kwargs):
         pants_form = PantsForm(request.POST or None, request.FILES or None)
         
         if pants_form.is_valid() and pants_form.files:
             pants_instance = pants_form.save(commit=False)
+            pants_instance.create_at = datetime.now()
+            pants_instance.update_at = datetime.now()
             pants_instance.user = self.request.user
             pants_instance.save()
+            messages.success(request, 'パンツを登録しました')
 
             return self.form_valid(pants_form)
 
@@ -122,8 +133,11 @@ class RegisterShoesView(FormView):
         
         if shoes_form.is_valid() and shoes_form.files:
             shoes_instance = shoes_form.save(commit=False)
+            shoes_instance.create_at = datetime.now()
+            shoes_instance.update_at = datetime.now()            
             shoes_instance.user = self.request.user
             shoes_instance.save()
+            messages.success(request, 'シューズを登録しました')
 
             return self.form_valid(shoes_form)
 
@@ -244,8 +258,10 @@ class CoordinateUpdateView(SuccessMessageMixin,UpdateView):
     
 def coordinate_delete(request, pk):
     coordinate = get_object_or_404(Coordinate, pk=pk)
-           
-    coordinate.delete()
+    
+    with transaction.atomic():
+        coordinate.delete()
+    
     messages.success(request, 'コーディネイトを削除しました')
     return redirect('clothes:coordinate_list')        
 
@@ -271,17 +287,17 @@ def favorite_outer_delete_picture(request, pk):
 
     favorite = get_object_or_404(Favorite, pk=pk)    
       
-    if favorite.outer:     
-     import os 
-     if os.path.isfile(favorite.outer.path):
-         os.remove(favorite.outer.path)  
+    # if favorite.outer:     
+    #  import os 
+    #  if os.path.isfile(favorite.outer.path):
+    #      os.remove(favorite.outer.path)  
          
-     favorite.outer.delete()  
+    #  favorite.outer.delete()  
     
     with transaction.atomic():
      favorite.delete()
 
-    messages.success(request, 'お気に入りを削除しました')
+    messages.success(request, 'お気に入りから外しました')
 
     return redirect('clothes:outer_list')
 
@@ -295,7 +311,7 @@ def add_favorite_outer_view(request,pk):
         favorite = Favorite.objects.create(user_id=user_id, outer=outer.outer)
         favorite.save()
         
-        messages.success(request, '画像をお気に入りに登録したよ')
+        messages.success(request, 'お気に入りに登録しました')
         return redirect('clothes:outer_list')
     except Outer.DoesNotExist:
         return render(request, 'home.html')
@@ -312,7 +328,7 @@ def add_outer_coordinate_view(request, outer_id, coordinate_id):
             coordinate_instance.outer.save(outer.outer.name, ContentFile(outer.outer.read()), save=True)
 
         
-        messages.success(request, '画像をコーディネイトに登録したよ')
+        messages.success(request, 'コーディネイトに追加しました')
         return redirect('clothes:outer_list')
     
     except Outer.DoesNotExist:
@@ -360,7 +376,7 @@ def add_favorite_outer_coordinate(request, outer_id, coordinate_id):
             coordinate.outer.save(favorite.outer.name, ContentFile(favorite.outer.read()), save=True)
 
         
-         messages.success(request, 'コーディネイトを作成しました')
+         messages.success(request, 'コーディネイトに追加しました')
          return redirect('clothes:outer_list')
     except Favorite.DoesNotExist:
         return render(request, 'home.html')
@@ -388,7 +404,7 @@ def create_inner_coordinate_view(request,pk):
         inner.save()
         
         
-        messages.success(request, '画像をコーディネイトに登録したよ')
+        messages.success(request, 'コーディネイトを作成しました')
         return redirect('clothes:inner_list')
     
     except Inner.DoesNotExist:
@@ -406,7 +422,7 @@ def add_inner_coordinate(request, inner_id, coordinate_id):
             coordinate_instance.inner.save(inner.inner.name, ContentFile(inner.inner.read()), save=True)
 
         
-        messages.success(request, '画像をコーディネイトに登録したよ')
+        messages.success(request, 'コーディネイトに追加しました')
         return redirect('clothes:inner_list')
     
     except Inner.DoesNotExist:
@@ -421,7 +437,7 @@ def add_favorite_inner(request,pk):
         inner = Favorite.objects.create(user_id=user_id, inner=inner.inner)
         inner.save()
         
-        messages.success(request, '画像をお気に入りに登録したよ')
+        messages.success(request, 'お気に入りに登録しました')
         return redirect('clothes:inner_list')
     except Inner.DoesNotExist:
         return render(request, 'home.html')
@@ -452,7 +468,7 @@ def add_favorite_inner_coordinate(request, inner_id, coordinate_id):
             coordinate.inner.save(favorite.inner.name, ContentFile(favorite.inner.read()), save=True)
 
         
-         messages.success(request, 'コーディネイトを作成しました')
+         messages.success(request, 'コーディネイトに追加しました')
          return redirect('clothes:inner_list')
     except Favorite.DoesNotExist:
         return render(request, 'home.html')    
@@ -471,7 +487,7 @@ def favorite_inner_delete_picture(request, pk):
     with transaction.atomic():
      favorite.delete()
 
-    messages.success(request, 'お気に入りを削除しました')
+    messages.success(request, 'お気に入りから外しました')
 
     return redirect('clothes:inner_list')
     
@@ -514,7 +530,7 @@ def add_pants_coordinate(request, pants_id, coordinate_id):
             coordinate_instance.pants.save(pants.pants.name, ContentFile(pants.pants.read()), save=True)
 
         
-        messages.success(request, '画像をコーディネイトに登録したよ')
+        messages.success(request, 'コーディネイトに追加しました')
         return redirect('clothes:pants_list')
     
     except Pants.DoesNotExist:
@@ -529,7 +545,7 @@ def add_favorite_pants(request,pk):
         pants = Favorite.objects.create(user_id=user_id, pants=pants.pants)
         pants.save()
         
-        messages.success(request, '画像をお気に入りに登録したよ')
+        messages.success(request, 'お気に入りに登録しました')
         return redirect('clothes:pants_list')
     except Pants.DoesNotExist:
         return render(request, 'home.html')
@@ -580,7 +596,7 @@ def favorite_pants_delete_picture(request, pk):
     with transaction.atomic():
      favorite.delete()
 
-    messages.success(request, 'お気に入りを削除しました')
+    messages.success(request, 'お気に入りから外しました')
 
     return redirect('clothes:pants_list')   
 
@@ -644,7 +660,7 @@ def favorite_shoes_delete_picture(request, pk):
     with transaction.atomic():
      favorite.delete()
 
-    messages.success(request, 'お気に入りを削除しました')
+    messages.success(request, 'お気に入りから外しました')
 
     return redirect('clothes:shoes_list')
 
@@ -676,7 +692,7 @@ def add_shoes_coordinate(request, shoes_id, coordinate_id):
             coordinate_instance.shoes.save(shoes.shoes.name, ContentFile(shoes.shoes.read()), save=True)
 
         
-        messages.success(request, '画像をコーディネイトに登録したよ')
+        messages.success(request, 'コーディネイトに追加しました')
         return redirect('clothes:shoes_list')
     
     except Shoes.DoesNotExist:
@@ -691,7 +707,7 @@ def add_favorite_shoes_view(request,pk):
         shoes = Favorite.objects.create(user_id=user_id, shoes=shoes.shoes)
         shoes.save()
         
-        messages.success(request, '画像をお気に入りに登録したよ')
+        messages.success(request, 'お気に入りに登録しました')
         return redirect('clothes:shoes_list')
     except Shoes.DoesNotExist:
         return render(request, 'home.html')
@@ -725,7 +741,7 @@ def add_favorite_shoes_coordinate(request, shoes_id, coordinate_id):
             coordinate.shoes.save(favorite.shoes.name, ContentFile(favorite.shoes.read()), save=True)
 
         
-         messages.success(request, 'コーディネイトを作成しました')
+         messages.success(request, 'コーディネイトに追加しました')
          return redirect('clothes:shoes_list')
     except Favorite.DoesNotExist:
         return render(request, 'home.html')

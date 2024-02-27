@@ -26,12 +26,14 @@
       -webkit-box-shadow: inset 1px 1px 1px #fff;
       box-shadow: inset 1px 1px 1px #fff;
       text-decoration: none; /* リンクのデフォルトのアンダーラインを削除 */
+      margin-right: 20px; 
     }
 
     a.btn-radius-solid:hover {
       background: -webkit-gradient(linear, left bottom, left top, from(#fdfbfb), to(#ebedee));
       background: -webkit-linear-gradient(bottom, #fdfbfb 0%, #ebedee 100%);
       background: linear-gradient(to top, #fdfbfb 0%, #ebedee 100%);
+      margin-right: 20px; 
     }
 
  input {
@@ -67,24 +69,82 @@ button:hover {
     border-radius: 5px;
   }
 
+ .center-container {
+            display: flex;
+             flex-direction: column; 
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            text-align: center; 
+        }
+ .center-container span {
+    margin-left: 5px; /* ・などの余白調整 */
+    margin-right: 5px; /* ・などの余白調整 */
+}
+
+
+
+ #image-preview {
+    max-width: 300px; /* 画像の最大横幅を指定 */
+    max-height: 300px; /* 画像の最大高さを指定 */
+  }
+
 </style>
+<div class="center-container">
 <div class="btn-radius-gradient-wrap">
-<div class="link-container">
+
+{% if messages %}
+{% for message in messages %}
+{{ message.message }}
+{% endfor %}
+{% endif %} <br>
+
   <a href=" {% url 'clothes:register_outer'%}"class="btn btn-radius-solid">アウター登録<i class="fas fa-angle-right fa-position-right"></i></a> 
   <a href=" {% url 'clothes:register_inner'%}"class="btn btn-radius-solid">インナー登録<i class="fas fa-angle-right fa-position-right"></i></a> 
   <a href=" {% url 'clothes:register_shoes'%}"class="btn btn-radius-solid">シューズ登録<i class="fas fa-angle-right fa-position-right"></i></a> 
 
-</div>
-</div>
-<div class="form-container">
+</div><br><br>
+
 <form method="post" enctype="multipart/form-data">
 
   {% csrf_token %}
+
+<label for="{{ pants_form.pants.name }}">Pants:</label>
+  <input type="file" name="{{ pants_form.pants.name }}" id="{{ pants_form.pants.name }}" required onchange="displaySelectedImage(this);">
+  
+  <!-- 画像プレビュー用の要素 -->
+  <div id="image-preview-container" style="display: none;">
+    <img id="image-preview" src="#" alt="Selected Image">
+  </div>
+ {{ form.pants.errors }}
+  {% comment %} {{ outer_form}} {% endcomment %}
+  
+  <input type="submit" value="保存">
+ </form>
+</div>
+ <script>
+  function displaySelectedImage(input) {
+    var previewContainer = document.getElementById('image-preview-container');
+    var previewImage = document.getElementById('image-preview');
+    var file = input.files[0];
+
+    if (file) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        previewImage.src = e.target.result;
+        previewContainer.style.display = 'block';
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
+</script>
+</div>
+   {% comment %} {{ form.pants.errors }}
   {{ pants_form.as_p }}
   <input type="submit" value="保存">
-  <hr>
  </form>
- <hr>
 </div>
- 
+  {% endcomment %}
 {% endblock %}

@@ -1,8 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<style>
+   .center-both {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 50vh;
+        text-align: center;
+    }
+</style>
+
+
+<div class="center-both">
+
+
 <form method="POST">
    {% csrf_token %}
    {{ form.as_p }}
    <input type="submit" value="ユーザー登録">
 </form>
+
+</div>
+
 {% endblock %}

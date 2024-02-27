@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 <style>
    .center-both {
         display: flex;
@@ -42,8 +43,13 @@ h1 {
  <br>
  <br>
  <br>
+
+<a href="{% url 'accounts:explanation' %}">初めての方へ</a>
  <a href="{% url 'accounts:user_information' %}">マイページ</a>
 </div>
+
+
+
 
 </div>
 

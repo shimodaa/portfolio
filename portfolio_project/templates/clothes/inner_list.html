@@ -88,40 +88,61 @@ h4:after {
         margin-top: 50px; /* <form> タグの下に余白を追加 */
     }
 
+.custom-hr {
+  position: static;
+  {% comment %} padding: 1rem 2rem; {% endcomment %}
+  height: 5px;
+  background: linear-gradient(to right, #00cc5b 40%,  #094 60%);
+ 
+  content: '';
+
+  }
+
+h5 {
+  padding: 1rem 3rem;
+  color: #fff;
+  border-radius: 100vh;
+  background-image: -webkit-gradient(linear, right top, left top, from(#9be15d), to(#00e3ae));
+  background-image: -webkit-linear-gradient(right, #9be15d 0%, #00e3ae 100%);
+  background-image: linear-gradient(to left, #9be15d 0%, #00e3ae 100%);
+}
+
+
 </style>
 <div class="link-container">
   <a href=" {% url 'clothes:outer_list' %}"class="btn btn-radius-solid">アウターリスト<i class="fas fa-angle-right fa-position-right"></i></a> 
+   <a href=" {% url 'clothes:inner_list' %}"class="btn btn-radius-solid">インナーリスト<i class="fas fa-angle-right fa-position-right"></i></a>  
   <a href=" {% url 'clothes:pants_list' %}"class="btn btn-radius-solid">パンツリスト<i class="fas fa-angle-right fa-position-right"></i></a> 
   <a href=" {% url 'clothes:shoes_list' %}"class="btn btn-radius-solid">シューズリスト<i class="fas fa-angle-right fa-position-right"></i></a>
 </div>
 <br>
- <h2>Inner List</h2>
+<h2>Inner List</h2>
+<hr class="custom-hr" >
+<h5>お気に入り</h5>
 
-<h4>お気に入り</h4>
-<div class="link-container">
 {% for favorite in favorites %}
-<tr>
-{% if favorite.inner %}
-<div class="link-item">
+
+{% if favorite.inner %} 
+<hr>
+
 <img width="100px" height="100px"  src="{{ favorite.inner.url}}" alt="Inner Image">
-<a href=" {% url 'clothes:create_favorite_inner_coordinate' pk=favorite.id %}">コーディネイトを作成する</a> 
+<a href=" {% url 'clothes:create_favorite_inner_coordinate' pk=favorite.id %}">コーディネイトを作成する</a> &nbsp; &nbsp; &nbsp; &nbsp;
 {% for coordinate in coordinates %}
 {% if not coordinate.inner %}
-<a href=" {% url 'clothes:add_favorite_inner_coordinate' inner_id=favorite.id coordinate_id=coordinate.id %}">コーディネイト{{ coordinate.name }}に追加する</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a href=" {% url 'clothes:add_favorite_inner_coordinate' inner_id=favorite.id coordinate_id=coordinate.id %}">コーディネイト{{ coordinate. }}に追加する</a> &nbsp; &nbsp; &nbsp; &nbsp;
  {% endif %}
 {% endfor %}&nbsp; &nbsp; &nbsp; &nbsp;
-<a href=" {% url 'clothes:favorite_inner_delete_picture' pk=favorite.id %}">削除する</a> 
-</div>
+<a href=" {% url 'clothes:favorite_inner_delete_picture' pk=favorite.id %}">お気に入りから外す</a> 
 {% endif %}
 {% endfor %}
-</div>
-</tr>
-<hr>
-<hr>
+
+<hr class="custom-hr" >
+
 
 {% for inner in inners %}
 <hr>
-<tr>
+
+
 
  <img width="100px" height="100px"  src="{{ inner.inner.url}}" alt="Inner Image">
   <a href=" {% url 'clothes:add_favorite_inner' pk=inner.id %}">お気に入りに追加する</a> &nbsp; &nbsp; &nbsp; &nbsp;
@@ -131,7 +152,7 @@ h4:after {
   <a href=" {% url 'clothes:add_inner_coordinate' inner_id=inner.id coordinate_id=coordinate.id %}">コーディネイト{{ coordinate.name }}に追加する</a> &nbsp; &nbsp; &nbsp; &nbsp;
  {% endif %}
 {% endfor %}&nbsp; &nbsp; &nbsp; &nbsp;
-<a href=" {% url 'clothes:inner_delete_picture' pk=inner.id %}">削除</a> 
+<a href=" {% url 'clothes:inner_delete_picture' pk=inner.id %}">削除する</a> 
 
 {% endfor %}
 </tr> 

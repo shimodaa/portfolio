@@ -18,7 +18,16 @@
     .center-both p:not(:last-child) {
         margin-bottom: 30px;
     }
+
+  .right-top {
+  position: absolute;
+  top: 20;
+  right: 0;
+  }
+
 </style>
+
+<div class="right-top"><a href="{% url 'accounts:delete_user' %}">アカウントを削除する</a></div>
 
 <div class="center-both">
     <h1>マイページ</h1>
@@ -32,7 +41,7 @@
         <input type="submit" value="ログアウト">
     </form>
 
- <p><a href="{% url 'accounts:delete_user' %}">アカウントを削除する</a></p>
+
  
 </div>
 

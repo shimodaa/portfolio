@@ -4,7 +4,7 @@ from accounts.models import Users
 from datetime import datetime
 from django.db import models, transaction
 from django.utils import timezone
-
+import hashlib
 
 class BaseModel(models.Model):
     create_at = models.DateTimeField()
@@ -27,15 +27,35 @@ class Coordinate(models.Model):
     shoes = models.FileField(upload_to='picture/',default='')
     create_at = models.DateTimeField(default=timezone.now) 
     update_at = models.DateTimeField(default=timezone.now)
+    counter = models.IntegerField(default=0) 
          
     class Meta:
      db_table = 'coordinate'
      
+     
+    # def save(self, *args, **kwargs):
+    #     # user_idとcounterを結合してハッシュ値を生成
+    #     unique_value = f"{self.user.id}-{self.counter}"
+    #     hashed_value = hashlib.md5(unique_value.encode()).hexdigest()
+
+    #     # ハッシュ値を整数に変換して保存
+    #     self.counter = int(hashed_value, 16)
+
+    #     super().save(*args, **kwargs)
+     
     def save(self, *args, **kwargs):
-        if not self.name:  
-            last_id = Coordinate.objects.all().order_by('-id').first().id if Coordinate.objects.exists() else 0
-            self.name = str(last_id + 1)
+        # 新しいオブジェクトが作成されるたびにカウンターを増やす
+        if not self.id:  # オブジェクトがまだ保存されていない場合
+            max_counter = Coordinate.objects.all().aggregate(models.Max('counter'))['counter__max']
+            self.counter = max_counter + 1 if max_counter is not None else 1
+
         super().save(*args, **kwargs)
+     
+    # def save(self, *args, **kwargs):
+    #     if not self.name:  
+    #         last_id = Coordinate.objects.all().order_by('-id').first().id if Coordinate.objects.exists() else 0
+    #         self.name = str(last_id + 1)
+    #     super().save(*args, **kwargs)
      
 class Outer(models.Model):
     

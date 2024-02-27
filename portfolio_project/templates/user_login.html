@@ -1,9 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<style>
+   .center-both {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 50vh;
+        text-align: center;
+    }
+
+  .center-both a {
+        margin-top: 50px; /* リンクの上部に余白を追加 */
+    }
+
+ .error-message {
+    color: red;
+  }
+
+
+</style>
+
+<div class="center-both">
+
+
+
 <form method="POST">
    {% csrf_token %}
    {{ form.as_p }}
    <input type="hidden" name="next" value="{{ request.GET.next }}">
    <input type="submit" value="ログイン">
 </form>
+
+</div>
+
 {% endblock %}
