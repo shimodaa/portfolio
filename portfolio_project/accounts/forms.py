@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import AuthenticationForm
 
 class RegistForm(forms.ModelForm):
-    username = forms.CharField(label='名前')
+    username = forms.CharField(label='ユーザー名')
     email = forms.EmailField(label='メールアドレス')        
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
     password_confirm = forms.CharField(label='パスワード確認', widget=forms.PasswordInput())

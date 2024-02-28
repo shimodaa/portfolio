@@ -477,12 +477,7 @@ def favorite_inner_delete_picture(request, pk):
 
     favorite = get_object_or_404(Favorite, pk=pk)    
       
-    if favorite.inner:     
-     import os 
-     if os.path.isfile(favorite.inner.path):
-         os.remove(favorite.inner.path)  
-         
-     favorite.inner.delete()  
+  
     
     with transaction.atomic():
      favorite.delete()
@@ -586,12 +581,7 @@ def favorite_pants_delete_picture(request, pk):
 
     favorite = get_object_or_404(Favorite, pk=pk)    
       
-    if favorite.pants:     
-     import os 
-     if os.path.isfile(favorite.pants.path):
-         os.remove(favorite.pants.path)  
-         
-     favorite.pants.delete()  
+
     
     with transaction.atomic():
      favorite.delete()
@@ -650,12 +640,7 @@ def favorite_shoes_delete_picture(request, pk):
 
     favorite = get_object_or_404(Favorite, pk=pk)    
       
-    if favorite.shoes:     
-     import os 
-     if os.path.isfile(favorite.shoes.path):
-         os.remove(favorite.shoes.path)  
-         
-     favorite.shoes.delete()  
+
     
     with transaction.atomic():
      favorite.delete()

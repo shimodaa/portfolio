@@ -31,7 +31,9 @@
    {{ form.as_p }}
    <input type="hidden" name="next" value="{{ request.GET.next }}">
    <input type="submit" value="ログイン">
-</form>
+</form><br><br>
+<p>アカウントをお持ちでない方は<a href="{% url 'accounts:regist' %}">こちらから新規登録できます。</a></p> 
+
 
 </div>
 
