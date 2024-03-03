@@ -11,26 +11,36 @@
   background: linear-gradient(to right, #2af598 0%, #009efd 100%);
 }
 .navbar {
-  background:  width: 300px;
+ background: width: 300px;
   height: 50px;
+  
   background: radial-gradient(
     circle 200px at center,
     #57f6fe 0%,
     #30c7ec 50%,
     #46aef7 100%
   );
-}
+ 
+     margin: 0 auto ; /* 追加：水平方向に中央揃えに */
+      display: flex; /* 追加：子要素を横並びにするために flex を利用 */
+      justify-content: space-evenly; /* 追加：子要素を等間隔に配置 */
+     align-items: center;
+    }
+   .navbar a {
+      text-decoration: none;
+      color: #fff;
+      display: block;
+    }
+
 </style>
-{% comment %} <div class="gradient">自分だけのコーディネイトを決めて外に出掛けよう！</div> {% endcomment %}
+</head>
    <body>
       <nav class="navbar nabvar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'accounts:home' %}">ホーム</a>
         {% if user.is_authenticated %}
-        {% comment %} <a class="navbar-brand" href="{% url 'accounts:logout' %}">ログアウ</a>         {% endcomment %}
         <a class="navbar-brand" href="{% url 'clothes:register_outer' %}">アイテム登録</a>
         <a class="navbar-brand" href="{% url 'clothes:outer_list' %}">アイテム一覧</a>
         
-        {% comment %} <a class="navbar-brand" href="{% url 'clothes:inner_list' %}">インナー一覧</a>         {% endcomment %}
         <a class="navbar-brand" href="{% url 'clothes:coordinate_list' %}">コーディネイト一覧</a>
         
         {% else %}

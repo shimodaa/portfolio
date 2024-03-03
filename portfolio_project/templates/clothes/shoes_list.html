@@ -70,6 +70,9 @@ h4:after {
 .link-container {
     display: flex;
     flex-wrap: wrap; 
+     display: flex; /* 追加：子要素を横並びにするために flex を利用 */
+      justify-content: center; /* 追加：子要素を等間隔に配置 */
+      align-items: center; 
 }
 
 .link-item {
@@ -79,7 +82,7 @@ h4:after {
 
  .link-container a {
         margin-top: 20px; 
-        margin-right: 20px; /* リンクの上部に余白を追加 */
+        margin-right: 80px; /* リンクの上部に余白を追加 */
        
     } 
 
