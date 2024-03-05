@@ -110,6 +110,25 @@ h5 {
   background-image: linear-gradient(to left, #9be15d 0%, #00e3ae 100%);
 }
 
+a.btn-gradient {
+  -webkit-transform: skew(-15deg);
+  transform: skew(-15deg);
+  color: #fff;
+  border-radius: 0;
+  background-image: -webkit-gradient(linear, left top, right top, from(#2af598), to(#009efd));
+  background-image: -webkit-linear-gradient(left, #2af598 0%, #009efd 100%);
+  background-image: linear-gradient(90deg, #2af598 0%, #009efd 100%);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+}
+
+a.btn-gradient:hover {
+  -webkit-transform: skew(0);
+  transform: skew(0);
+  color: #fff;
+  -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .1);
+}
 
 </style>
 <div class="link-container">
@@ -129,13 +148,13 @@ h5 {
 <hr>
 
 <img width="100px" height="100px"  src="{{ favorite.inner.url}}" alt="Inner Image">
-<a href=" {% url 'clothes:create_favorite_inner_coordinate' pk=favorite.id %}">コーディネイトを作成する</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a href=" {% url 'clothes:create_favorite_inner_coordinate' pk=favorite.id %}"class="btn btn-gradient">コーディネイトを作成する</a> &nbsp; &nbsp; &nbsp; &nbsp;
 {% for coordinate in coordinates %}
 {% if not coordinate.inner %}
-<a href=" {% url 'clothes:add_favorite_inner_coordinate' inner_id=favorite.id coordinate_id=coordinate.id %}">コーディネイト{{ coordinate. }}に追加する</a> &nbsp; &nbsp; &nbsp; &nbsp;
+<a href=" {% url 'clothes:add_favorite_inner_coordinate' inner_id=favorite.id coordinate_id=coordinate.id %}"class="btn btn-gradient">コーディネイト{{ coordinate. }}に追加する</a> &nbsp; &nbsp; &nbsp; &nbsp;
  {% endif %}
 {% endfor %}&nbsp; &nbsp; &nbsp; &nbsp;
-<a href=" {% url 'clothes:favorite_inner_delete_picture' pk=favorite.id %}">お気に入りから外す</a> 
+<a href=" {% url 'clothes:favorite_inner_delete_picture' pk=favorite.id %}"class="btn btn-gradient">お気に入りから外す</a> 
 {% endif %}
 {% endfor %}
 
@@ -148,14 +167,14 @@ h5 {
 
 
  <img width="100px" height="100px"  src="{{ inner.inner.url}}" alt="Inner Image">
-  <a href=" {% url 'clothes:add_favorite_inner' pk=inner.id %}">お気に入りに追加する</a> &nbsp; &nbsp; &nbsp; &nbsp;
-  <a href=" {% url 'clothes:create_inner_coordinate_view' pk=inner.id %}">コーディネイトを作成する</a> &nbsp; &nbsp; &nbsp; &nbsp;
+  <a href=" {% url 'clothes:add_favorite_inner' pk=inner.id %}"class="btn btn-gradient">お気に入りに追加する</a> &nbsp; &nbsp; &nbsp; &nbsp;
+  <a href=" {% url 'clothes:create_inner_coordinate_view' pk=inner.id %}"class="btn btn-gradient">コーディネイトを作成する</a> &nbsp; &nbsp; &nbsp; &nbsp;
 {% for coordinate in coordinates %}
 {% if not coordinate.inner %}
-  <a href=" {% url 'clothes:add_inner_coordinate' inner_id=inner.id coordinate_id=coordinate.id %}">コーディネイト{{ coordinate.name }}に追加する</a> &nbsp; &nbsp; &nbsp; &nbsp;
+  <a href=" {% url 'clothes:add_inner_coordinate' inner_id=inner.id coordinate_id=coordinate.id %}"class="btn btn-gradient">コーディネイト{{ coordinate.name }}に追加する</a> &nbsp; &nbsp; &nbsp; &nbsp;
  {% endif %}
 {% endfor %}&nbsp; &nbsp; &nbsp; &nbsp;
-<a href=" {% url 'clothes:inner_delete_picture' pk=inner.id %}">削除する</a> 
+<a href=" {% url 'clothes:inner_delete_picture' pk=inner.id %}"class="btn btn-gradient">削除する</a> 
 
 {% endfor %}
 </tr> 

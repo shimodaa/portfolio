@@ -89,6 +89,18 @@ button:hover {
     max-height: 300px; /* 画像の最大高さを指定 */
   }
 
+ label {
+        font-size: 30px;
+        font-weight: bold;
+        color: black;
+        margin-bottom: 10px;
+    }
+
+    .custom-label {
+        color:#000000; 
+        font-style: italic;
+    }
+
 </style>
 <div class="center-container">
 <div class="btn-radius-gradient-wrap">
@@ -110,7 +122,7 @@ button:hover {
 
   {% csrf_token %}
 
-<label for="{{ pants_form.pants.name }}">Pants:</label>
+<label for="{{ pants_form.pants.name }}"class="custom-label">Pants:</label>
   <input type="file" name="{{ pants_form.pants.name }}" id="{{ pants_form.pants.name }}" required onchange="displaySelectedImage(this);">
   
   <!-- 画像プレビュー用の要素 -->

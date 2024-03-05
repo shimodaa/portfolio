@@ -15,13 +15,71 @@
         margin-top: 50px; /* リンクの上部に余白を追加 */
     }
 
- .error-message {
+ .errorlist {
     color: red;
   }
 
+a.btn_06 {
+	display: block;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	width: 300px;
+	margin: auto;
+	padding: 0.3rem 0.1rem;
+	font-weight: bold;
+	border-radius: 100vh;
+	border-bottom: 7px solid #0686b2;
+	background: #27acd9;
+	color: #fff;
+   transform-origin: center;  
+}
+a.btn_06:hover {
+	margin-top: 6px;
+	border-bottom: 1px solid #0686b2;
+	color: #fff;
+}
+
+  input {
+   padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  }
+
+input:focus, select:focus, textarea:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 5px #66afe9;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+  select {
+    padding: 8px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }  
+
+
+
+   
 
 </style>
 
+<br><br>
 <div class="center-both">
 
 
@@ -30,9 +88,9 @@
    {% csrf_token %}
    {{ form.as_p }}
    <input type="hidden" name="next" value="{{ request.GET.next }}">
-   <input type="submit" value="ログイン">
+   <input type="submit" value="ログイン" >
 </form><br><br>
-<p>アカウントをお持ちでない方は<a href="{% url 'accounts:regist' %}">こちらから新規登録できます。</a></p> 
+<p>アカウントをお持ちでない方は<a href="{% url 'accounts:regist' %}"class="btn_06">こちらから新規登録できます。</a></p> 
 
 
 </div>

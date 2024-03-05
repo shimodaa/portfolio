@@ -35,6 +35,27 @@ h1 {
   justify-content: center; 
 }
 
+a.btn_06 {
+	display: block;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	width: 200px;
+	margin: auto;
+	padding: 0.3rem 0.1rem;
+	font-weight: bold;
+	border-radius: 100vh;
+	border-bottom: 7px solid #0686b2;
+	background: #27acd9;
+	color: #fff;
+   transform-origin: center;  
+}
+a.btn_06:hover {
+	margin-top: 6px;
+	border-bottom: 1px solid #0686b2;
+	color: #fff;
+}
+
 
 </style>
 <div class="linear-gradient">
@@ -44,8 +65,8 @@ h1 {
  <br>
  <br>
 
-<a href="{% url 'accounts:explanation' %}">初めての方へ</a>
- <a href="{% url 'accounts:user_information' %}">マイページ</a>
+<a href="{% url 'accounts:explanation' %}"class="btn_06">初めての方へ</a><br><br>
+ <a href="{% url 'accounts:user_information' %}"class="btn_06">マイページ</a>
 </div>
 
 

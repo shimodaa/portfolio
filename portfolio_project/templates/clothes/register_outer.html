@@ -8,17 +8,17 @@
 
 
 .link-container {
-    display: flex; /* Flexbox を使って要素を横に配置 */
+    display: flex; 
 }
 
  .link-container a {
         margin-top: 20px; 
-        margin-right: 20px; /* リンクの上部に余白を追加 */
+        margin-right: 20px; 
        
     } 
 
    .form-container {
-        margin-top: 70px; /* <form> タグの下に余白を追加 */
+        margin-top: 70px; 
         margin-left: 450px;
     }
 
@@ -30,7 +30,7 @@
       background: linear-gradient(to bottom, #fdfbfb 0%, #ebedee 100%);
       -webkit-box-shadow: inset 1px 1px 1px #fff;
       box-shadow: inset 1px 1px 1px #fff;
-      text-decoration: none; /* リンクのデフォルトのアンダーラインを削除 */
+      text-decoration: none; 
       margin-right: 20px; 
     }
 
@@ -83,16 +83,28 @@ button:hover {
             text-align: center; 
         }
  .center-container span {
-    margin-left: 5px; /* ・などの余白調整 */
-    margin-right: 5px; /* ・などの余白調整 */
+    margin-left: 5px; 
+    margin-right: 5px; 
 }
 
 
 
  #image-preview {
-    max-width: 300px; /* 画像の最大横幅を指定 */
-    max-height: 300px; /* 画像の最大高さを指定 */
+    max-width: 300px; 
+    max-height: 300px; 
   }
+
+  label {
+        font-size: 30px;
+        font-weight: bold;
+        color: black;
+        margin-bottom: 10px;
+    }
+
+    .custom-label {
+        color:#000000; 
+        font-style: italic;
+    }
 
 </style>
 
@@ -111,21 +123,20 @@ button:hover {
 <a href=" {% url 'clothes:register_shoes'%}"class="btn btn-radius-solid">シューズ登録<i class="fas fa-angle-right fa-position-right"></i></a> 
 
  </div><br><br>
-{% comment %} </div>
-<div class="form-container"> {% endcomment %}
+
 <form method="post" enctype="multipart/form-data">
 
   {% csrf_token %}
 
-<label for="{{ outer_form.outer.name }}">outer:</label>
+<label for="{{ outer_form.outer.name }}"class="custom-label">Outer:</label>
   <input type="file" name="{{ outer_form.outer.name }}" id="{{ outer_form.outer.name }}" required onchange="displaySelectedImage(this);">
   
-  <!-- 画像プレビュー用の要素 -->
+
   <div id="image-preview-container" style="display: none;">
     <img id="image-preview" src="#" alt="Selected Image">
   </div>
  {{ form.outer.errors }}
-  {% comment %} {{ outer_form}} {% endcomment %}
+  
   
   <input type="submit" value="保存">
  </form>

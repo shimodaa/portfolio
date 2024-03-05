@@ -25,9 +25,30 @@
   right: 0;
   }
 
+a.btn_06 {
+	display: block;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	width: 200px;
+	margin: auto;
+	padding: 0.3rem 0.1rem;
+	font-weight: bold;
+	border-radius: 100vh;
+	border-bottom: 7px solid #0686b2;
+	background: #27acd9;
+	color: #fff;
+   transform-origin: center;  
+}
+a.btn_06:hover {
+	margin-top: 6px;
+	border-bottom: 1px solid #0686b2;
+	color: #fff;
+}
+
 </style>
 
-<div class="right-top"><a href="{% url 'accounts:delete_user' %}">アカウントを削除する</a></div>
+<div class="right-top"><a href="{% url 'accounts:delete_user' %}"class="btn_06">アカウントを削除する</a></div>
 
 <div class="center-both">
     <h1>マイページ</h1>
@@ -38,7 +59,7 @@
 
 <form action="{% url 'accounts:logout' %}" method="post">
         {% csrf_token %}
-        <input type="submit" value="ログアウト">
+        <input type="submit" value="ログアウト"class="btn_06">
     </form>
 
 

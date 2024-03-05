@@ -86,10 +86,18 @@ button:hover {
     border-radius: 5px;
   }   
 
-{% comment %} .image-thumbnail {
-    width: 200px; /* 任意のサイズに変更 */
-    height: 200px; /* 任意のサイズに変更 */
-} {% endcomment %}
+a.btn-radius-solid {
+  background: #f1e767;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to bottom, #f1e767 0%, #feb645 100%);
+}
+
+a.btn-radius-solid:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to top, #f1e767 0%, #feb645 100%);
+}
 
 </style>
 <br>
@@ -124,6 +132,6 @@ button:hover {
  </form>
  <hr>
  
-<a href="{% url 'clothes:coordinate_list' %}">コーディネイト一覧に戻る</a>
+<a href="{% url 'clothes:coordinate_list' %}"class="btn btn-radius-solid btn--shadow">コーディネイト一覧に戻る<i class="fas fa-angle-right fa-position-right"></i></a>
 
 {% endblock %}

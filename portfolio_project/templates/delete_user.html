@@ -23,6 +23,27 @@
     .form-container {
         margin-bottom: 30px; /* <form> タグの下に余白を追加 */
     }
+
+    a.btn_06 {
+	display: block;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	width: 200px;
+	margin: auto;
+	padding: 0.3rem 0.1rem;
+	font-weight: bold;
+	border-radius: 100vh;
+	border-bottom: 7px solid #0686b2;
+	background: #27acd9;
+	color: #fff;
+   transform-origin: center;  
+}
+a.btn_06:hover {
+	margin-top: 6px;
+	border-bottom: 1px solid #0686b2;
+	color: #fff;
+}
 </style>
 
 <div class="center-both">
@@ -38,7 +59,7 @@
     </div>
 
     <div class="paragraph-container">
-    <p><a href="{% url 'accounts:home' %}">キャンセル</a></p> 
+    <p><a href="{% url 'accounts:home' %}"class="btn_06">キャンセル</a></p> 
     </div>
 
 </div>

@@ -58,6 +58,20 @@ h2:before {
    background: linear-gradient(to right, #001f3f,#add8e6);
 }
 
+a.btn-radius-solid {
+  background: #f1e767;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(top, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to bottom, #f1e767 0%, #feb645 100%);
+}
+
+a.btn-radius-solid:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#f1e767), to(#feb645));
+  background: -webkit-linear-gradient(bottom, #f1e767 0%, #feb645 100%);
+  background: linear-gradient(to top, #f1e767 0%, #feb645 100%);
+}
+
+
 </style>
 
 {% if messages %}
@@ -90,8 +104,8 @@ h2:before {
                 <li><strong>Shoes:</strong> <img width="50px" height="50px" src="{{ coordinate.shoes.url }}" alt="Shoes Image"></li><br>                
                 {% endif %}             
                  </ul>
-                <a href="{% url 'clothes:coordinate_form' pk=coordinate.id %}">編集</a> &nbsp; &nbsp; &nbsp; &nbsp;
-                <a href="{% url 'clothes:coordinate_delete' pk=coordinate.id %}">削除</a>
+                <a href="{% url 'clothes:coordinate_form' pk=coordinate.id %}"class="btn btn-radius-solid btn--shadow">編集<i class="fas fa-angle-right fa-position-right"></i></a> &nbsp; &nbsp; &nbsp; &nbsp;
+                <a href="{% url 'clothes:coordinate_delete' pk=coordinate.id %}"class="btn btn-radius-solid btn--shadow">削除<i class="fas fa-angle-right fa-position-right"></i></a>
             </li>
         {% endfor %}
     </ul>

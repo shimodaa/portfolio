@@ -92,6 +92,18 @@ button:hover {
     max-height: 300px; /* 画像の最大高さを指定 */
   }
 
+ label {
+        font-size: 30px;
+        font-weight: bold;
+        color: black;
+        margin-bottom: 10px;
+    }
+
+    .custom-label {
+        color:#000000; 
+        font-style: italic;
+    }
+
 </style>
 <div class="center-container">
 <div class="btn-radius-gradient-wrap">
@@ -114,7 +126,7 @@ button:hover {
 
   {% csrf_token %}
   
-<label for="{{ inner_form.inner.name }}">ineer:</label>
+<label for="{{ inner_form.inner.name }}"class="custom-label">Ineer:</label>
   <input type="file" name="{{ inner_form.inner.name }}" id="{{ inner_form.inner.name }}" required onchange="displaySelectedImage(this);">
   
   <!-- 画像プレビュー用の要素 -->

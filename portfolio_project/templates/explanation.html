@@ -11,6 +11,27 @@
         {% comment %} height: 50vh; {% endcomment %}
         text-align: center;
     }
+
+    a.btn_06 {
+	display: block;
+	text-align: center;
+	vertical-align: middle;
+	text-decoration: none;
+	width: 200px;
+	margin: auto;
+	padding: 0.3rem 0.1rem;
+	font-weight: bold;
+	border-radius: 100vh;
+	border-bottom: 7px solid #0686b2;
+	background: #27acd9;
+	color: #fff;
+   transform-origin: center;  
+}
+a.btn_06:hover {
+	margin-top: 6px;
+	border-bottom: 1px solid #0686b2;
+	color: #fff;
+}
 </style>
 <br>
 
@@ -65,6 +86,7 @@
 <img width="400px" height="300px"  src="{{ MEDIA_URL }}/picture/スクリーンショット_2024-02-26_205730.png"  alt="Outer Image">
 アイテムを削除しました。<br><br>
 <strong>説明は以上になります！自分だけのコーディネイトをつくりましょう！</strong><br>
+<p><a href="{% url 'accounts:home' %}"class="btn_06">ホーム画面に戻る</a></p> 
 
 </div>
 
