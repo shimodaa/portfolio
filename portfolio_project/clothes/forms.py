@@ -21,7 +21,7 @@ class OuterForm(forms.ModelForm):
         if outer:
             if not outer.name.lower().endswith(('.jpg', '.jpeg', '.png')):
                 verbose_name = self.fields['outer'].label or 'image'
-                raise ValidationError(f'Please upload a valid {verbose_name.lower()} image')
+                raise ValidationError('画像ファイルはJPG または PNG にしてください')
 
         return outer
 

@@ -106,6 +106,24 @@ button:hover {
         font-style: italic;
     }
 
+  
+form input[type="submit"] {
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  form input[type="submit"]:hover {
+    background-color: #2980b9;
+  }
+
+   .errorlist {
+    color: red;
+  }
+
 </style>
 
 <div class="center-container">
@@ -137,7 +155,7 @@ button:hover {
   </div>
  {{ form.outer.errors }}
   
-  
+  <p></p>
   <input type="submit" value="保存">
  </form>
 </div>
